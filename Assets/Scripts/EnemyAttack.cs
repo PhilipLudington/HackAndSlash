@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class PlayerAttack : MonoBehaviour
+public class EnemyAttack : MonoBehaviour
 {
     public GameObject target;
     public float attackTimer;
@@ -27,14 +27,10 @@ public class PlayerAttack : MonoBehaviour
             attackTimer = 0;
         }
 
-        // Check for attack key
-        if (Input.GetKeyUp(KeyCode.F))
+        if (attackTimer == 0)
         {
-            if (attackTimer == 0)
-            {
-                Attack();
-                attackTimer = coolDown;
-            }
+            Attack();
+            attackTimer = coolDown;
         }
     }
 
@@ -53,9 +49,9 @@ public class PlayerAttack : MonoBehaviour
         {
             if (direction > 0)
             {
-                EnemyHealth enemyHealth = (EnemyHealth)target.GetComponent("EnemyHealth");
+                PlayerHealth playerHealth = (PlayerHealth)target.GetComponent("PlayerHealth");
 
-                enemyHealth.AdjustHealth(-10);
+                playerHealth.AdjustHealth(-10);
             }
         }
     }
