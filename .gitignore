@@ -10,8 +10,9 @@
 bin/
 obj/
 
-# THe Libary folder is strickly a Unity internal affair
+# Ignore Unity's internal folders
 /Library
+/Temp
 
 # mstest test results
 TestResults
