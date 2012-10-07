@@ -6,10 +6,10 @@ public class BaseStat
 {
     public BaseStat()
     {
-        baseValue = 0;
-        buffValue = 0;
-        levelModifier = 1.10f;
-        expToLevel = 100;
+        //baseValue = 0;
+        //buffValue = 0;
+        //levelModifier = 1.10f;
+        //expToLevel = 100;
 
         BaseValue = 0;
         BuffValue = 0;
@@ -25,7 +25,7 @@ public class BaseStat
         get;
         set;
     }
-    private int baseValue;
+    //private int baseValue;
 
     /// <summary>
     /// the amount of the buff to this stat
@@ -35,7 +35,7 @@ public class BaseStat
         get;
         set;
     }
-    private int buffValue;
+    //private int buffValue;
 
     /// <summary>
     /// the modifier applied to the epc needed to raise the skill
@@ -45,7 +45,7 @@ public class BaseStat
         get;
         set;
     }
-    private float levelModifier;
+    //private float levelModifier;
 
     /// <summary>
     /// the total amount of exp nedded to raise this skill
@@ -55,11 +55,11 @@ public class BaseStat
         get;
         set;
     }
-    private int expToLevel;
+    //private int expToLevel;
 
     private int CalculateExpToLevel()
     {
-        return (int)Math.Round(ExpToLevel * LevelModifier);
+        return (int)(ExpToLevel * LevelModifier);
     }
 
     public void LevelUp()
