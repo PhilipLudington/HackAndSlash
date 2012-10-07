@@ -6,6 +6,7 @@ public class EnemyAI : MonoBehaviour
     public Transform target;
     public int moveSpeed;
     public int rotationSpeed;
+    public int maxDistance;
 
     private Transform myTransform;
 
@@ -20,6 +21,8 @@ public class EnemyAI : MonoBehaviour
         GameObject gameObject = GameObject.FindGameObjectWithTag("Player");
 
         target = gameObject.transform;
+
+        maxDistance = 2;
     }
 
     // Update is called once per frame
@@ -32,7 +35,10 @@ public class EnemyAI : MonoBehaviour
             Quaternion.LookRotation(target.position - myTransform.position),
             rotationSpeed * Time.deltaTime);
 
-        // Move towards target/player
-        myTransform.position += myTransform.forward * moveSpeed * Time.deltaTime;
+        if (Vector3.Distance(target.position, myTransform.position) > maxDistance)
+        {
+            // Move towards target/player
+            myTransform.position += myTransform.forward * moveSpeed * Time.deltaTime;
+        }
     }
 }
