@@ -73,13 +73,23 @@ public class Targetting : MonoBehaviour
                 index = 0;
             }
 
+            DeSelectTarget();
             selectedTarget = targets[index];
-            SelectTarget();
         }
+        SelectTarget();
     }
 
     private void SelectTarget()
     {
         selectedTarget.renderer.material.color = Color.red;
+        PlayerAttack playerAttack = (PlayerAttack)GetComponent("PlayerAttack");
+
+        playerAttack.target = selectedTarget.gameObject;
+    }
+
+    private void DeSelectTarget()
+    {
+        selectedTarget.renderer.material.color = Color.blue;
+        selectedTarget = null;
     }
 }
