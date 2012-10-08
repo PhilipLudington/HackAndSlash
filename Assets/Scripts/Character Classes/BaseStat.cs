@@ -65,8 +65,11 @@ public class BaseStat
         BaseValue++;
     }
 
-    public int AdjustedValue()
+    public int AdjustedBaseValue
     {
-        return BaseValue + BuffValue;
+        get
+        {
+            return BaseValue + BuffValue;
+        }
     }
 }

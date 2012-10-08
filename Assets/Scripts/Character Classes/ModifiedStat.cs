@@ -28,9 +28,22 @@ public class ModifiedStat : BaseStat
         {
             foreach (ModifyingAttribute modifyingAttribute in mods)
             {
-                modValue += (int)(modifyingAttribute.attribute.AdjustedValue() * modifyingAttribute.ratio);
+                modValue += (int)(modifyingAttribute.attribute.AdjustedBaseValue * modifyingAttribute.ratio);
             }
         }
+    }
+
+    public new int AdjustedBaseValue
+    {
+        get
+        {
+            return base.AdjustedBaseValue + modValue;
+        }
+    }
+
+    public void Update()
+    {
+        CalculateModValue();
     }
 }
 
