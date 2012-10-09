@@ -5,7 +5,7 @@ public enum AttributeName
     Constitution,
     Nimbleness,
     Speed,
-    Concerntration,
+    Concentration,
     Willpower,
     Charisma
 }
