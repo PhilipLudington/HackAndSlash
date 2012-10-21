@@ -6,6 +6,8 @@ public class CharacterGenerator : MonoBehaviour
 {
     private const int StartingPoints = 350;
     private const int MinimumStartingValue = 10;
+    private const int StartingValue = 50;
+
     private int pointsLeft;
 
     private PlayerCharacter toon;
@@ -16,18 +18,20 @@ public class CharacterGenerator : MonoBehaviour
         toon = new PlayerCharacter();
         toon.Awake();
 
+        pointsLeft = StartingPoints;
+
         for (int i = 0; i < Enum.GetValues(typeof(AttributeName)).Length; i++)
         {
-            toon.GetPrimaryAttribute(i).BaseValue = MinimumStartingValue;
+            toon.GetPrimaryAttribute(i).BaseValue = StartingValue;
+            pointsLeft -= (StartingValue - MinimumStartingValue);
         }
 
-        pointsLeft = StartingPoints;
+        toon.StatUpdate();
     }
 
     // Update is called once per frame
     void Update()
     {
-
     }
 
     void OnGUI()
@@ -46,7 +50,7 @@ public class CharacterGenerator : MonoBehaviour
     private void DisplayName()
     {
         GUI.Label(new Rect(10, 10, 50, 25), "Name: ");
-        toon.Name = GUI.TextArea(new Rect(65, 10, 100, 25), toon.Name);
+        toon.Name = GUI.TextField(new Rect(65, 10, 100, 25), toon.Name);
     }
 
     private void DisplayAttribute(int index)
@@ -54,10 +58,27 @@ public class CharacterGenerator : MonoBehaviour
         int y = 40 + (index * 25);
 
         GUI.Label(new Rect(10, y, 100, 25), ((AttributeName)index).ToString());
-
         GUI.Label(new Rect(115, y, 30, 25), toon.GetPrimaryAttribute(index).AdjustedBaseValue.ToString());
-        GUI.Button(new Rect(145, y, 25, 25), "-");
-        GUI.Button(new Rect(170, y, 25, 25), "+");
+
+        if (GUI.Button(new Rect(135, y, 25, 25), "-"))
+        {
+            if (toon.GetPrimaryAttribute(index).BaseValue > MinimumStartingValue)
+            {
+                toon.GetPrimaryAttribute(index).BaseValue--;
+                pointsLeft++;
+            }
+            toon.StatUpdate();
+        }
+
+        if (GUI.Button(new Rect(160, y, 25, 25), "+"))
+        {
+            if (pointsLeft > 0)
+            {
+                toon.GetPrimaryAttribute(index).BaseValue++;
+                pointsLeft--;
+            }
+            toon.StatUpdate();
+        }
     }
 
     private void DisplayAttributes()
@@ -70,9 +91,9 @@ public class CharacterGenerator : MonoBehaviour
 
     private void DisplaySkill(int index)
     {
-        GUI.Label(new Rect(200, 40 + (index * 25), 100, 25), ((SkillName)index).ToString());
+        GUI.Label(new Rect(190, 40 + (index * 25), 100, 25), ((SkillName)index).ToString());
 
-        GUI.Label(new Rect(300, 40 + (index * 25), 30, 25), toon.GetSkill(index).AdjustedBaseValue.ToString());
+        GUI.Label(new Rect(290, 40 + (index * 25), 30, 25), toon.GetSkill(index).AdjustedBaseValue.ToString());
     }
 
     private void DisplaySkills()

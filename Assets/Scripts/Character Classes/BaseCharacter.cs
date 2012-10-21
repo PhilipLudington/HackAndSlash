@@ -118,6 +118,8 @@ public class BaseCharacter : MonoBehaviour
         {
             vitals[i] = new Vital();
         }
+
+        SetupVitalModifiers();
     }
 
     private void SetupSkills()
@@ -126,6 +128,8 @@ public class BaseCharacter : MonoBehaviour
         {
             skills[i] = new Skill();
         }
+
+        SetupSkillModifiers();
     }
 
     private void SetupVitalModifiers()
