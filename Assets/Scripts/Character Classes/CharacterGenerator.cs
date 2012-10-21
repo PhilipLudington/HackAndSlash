@@ -4,9 +4,19 @@ using System;
 
 public class CharacterGenerator : MonoBehaviour
 {
+    // Attribute Constants
     private const int StartingPoints = 350;
     private const int MinimumStartingValue = 10;
     private const int StartingValue = 50;
+
+    // display constants
+    private const int Offset = 5;
+    private const int LineHeight = 23;
+    private const int StatLabelWidth = 100;
+    private const int BaseValueLabelWidth = 30;
+    private const int ButtonWidth = 20;
+    private const int ButtonHeight = 20;
+    private const int StatStartingPoss = 40;
 
     private int pointsLeft;
 
@@ -55,12 +65,16 @@ public class CharacterGenerator : MonoBehaviour
 
     private void DisplayAttribute(int index)
     {
-        int y = 40 + (index * 25);
+        int y = StatStartingPoss + (index * LineHeight);
 
-        GUI.Label(new Rect(10, y, 100, 25), ((AttributeName)index).ToString());
-        GUI.Label(new Rect(115, y, 30, 25), toon.GetPrimaryAttribute(index).AdjustedBaseValue.ToString());
+        GUI.Label(new Rect(Offset, y, StatLabelWidth, LineHeight),
+            ((AttributeName)index).ToString());
 
-        if (GUI.Button(new Rect(135, y, 25, 25), "-"))
+        GUI.Label(new Rect(StatLabelWidth + Offset, y, BaseValueLabelWidth, LineHeight),
+            toon.GetPrimaryAttribute(index).AdjustedBaseValue.ToString());
+
+        if (GUI.Button(new Rect(Offset + StatLabelWidth + BaseValueLabelWidth,
+            y, ButtonWidth, ButtonHeight), "-"))
         {
             if (toon.GetPrimaryAttribute(index).BaseValue > MinimumStartingValue)
             {
@@ -70,7 +84,8 @@ public class CharacterGenerator : MonoBehaviour
             toon.StatUpdate();
         }
 
-        if (GUI.Button(new Rect(160, y, 25, 25), "+"))
+        if (GUI.Button(new Rect(Offset + StatLabelWidth + BaseValueLabelWidth + ButtonWidth,
+            y, ButtonWidth, ButtonHeight), "+"))
         {
             if (pointsLeft > 0)
             {
@@ -91,9 +106,15 @@ public class CharacterGenerator : MonoBehaviour
 
     private void DisplaySkill(int index)
     {
-        GUI.Label(new Rect(190, 40 + (index * 25), 100, 25), ((SkillName)index).ToString());
+        int y = StatStartingPoss + (index * LineHeight);
+        int xAnchor = Offset + StatLabelWidth + Offset + BaseValueLabelWidth
+            + ButtonWidth + ButtonHeight;
 
-        GUI.Label(new Rect(290, 40 + (index * 25), 30, 25), toon.GetSkill(index).AdjustedBaseValue.ToString());
+        GUI.Label(new Rect(xAnchor + Offset, y, StatLabelWidth, LineHeight),
+            ((SkillName)index).ToString());
+
+        GUI.Label(new Rect(xAnchor + Offset + StatLabelWidth, y,
+            BaseValueLabelWidth, LineHeight), toon.GetSkill(index).AdjustedBaseValue.ToString());
     }
 
     private void DisplaySkills()
@@ -106,9 +127,16 @@ public class CharacterGenerator : MonoBehaviour
 
     private void DisplayVital(int index)
     {
-        GUI.Label(new Rect(340, 40 + (index * 25), 100, 25), ((VitalName)index).ToString());
+        int y = StatStartingPoss + (index * LineHeight);
+        int xAnchor = Offset + StatLabelWidth + Offset + BaseValueLabelWidth
+            + ButtonWidth + ButtonHeight
+            + Offset + StatLabelWidth + BaseValueLabelWidth;
 
-        GUI.Label(new Rect(440, 40 + (index * 25), 30, 25), toon.GetVital(index).AdjustedBaseValue.ToString());
+        GUI.Label(new Rect(xAnchor + Offset, y, StatLabelWidth, LineHeight),
+            ((VitalName)index).ToString());
+
+        GUI.Label(new Rect(xAnchor + Offset + StatLabelWidth, y, BaseValueLabelWidth, LineHeight),
+            toon.GetVital(index).AdjustedBaseValue.ToString());
     }
 
     private void DisplayVitals()
