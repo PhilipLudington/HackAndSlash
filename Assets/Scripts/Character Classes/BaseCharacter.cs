@@ -26,7 +26,7 @@ public class BaseCharacter : MonoBehaviour
     }
 
 
-    void Awake()
+    public void Awake()
     {
         Name = string.Empty;
         Level = 0;
@@ -36,11 +36,11 @@ public class BaseCharacter : MonoBehaviour
         primaryAttributes = new Attribute[attributesCount];
         SetupPrimaryAttributes();
 
-        int vitalsCount = Enum.GetValues(typeof(Vital)).Length;
+        int vitalsCount = Enum.GetValues(typeof(VitalName)).Length;
         vitals = new Vital[vitalsCount];
         SetupVitals();
 
-        int skillsCount = Enum.GetValues(typeof(Skill)).Length;
+        int skillsCount = Enum.GetValues(typeof(SkillName)).Length;
         skills = new Skill[skillsCount];
         SetupSkills();
     }
