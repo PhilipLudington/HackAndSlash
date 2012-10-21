@@ -45,16 +45,17 @@ public class BaseCharacter : MonoBehaviour
         SetupSkills();
     }
 
-    // Use this for initialization
-    void Start()
+    public void StatUpdate()
     {
+        for (int i = 0; i < vitals.Length; i++)
+        {
+            vitals[i].Update();
+        }
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        for (int i = 0; i < skills.Length; i++)
+        {
+            skills[i].Update();
+        }
     }
 
     public void AddExp(uint exp)
