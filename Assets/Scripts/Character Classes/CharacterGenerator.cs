@@ -18,6 +18,10 @@ public class CharacterGenerator : MonoBehaviour
     private const int ButtonHeight = 20;
     private const int StatStartingPoss = 40;
 
+    // GUI Style vars
+    public GUIStyle guiStyle;
+    public GUISkin guiSkin;
+
     private int pointsLeft;
 
     private PlayerCharacter toon;
@@ -46,13 +50,19 @@ public class CharacterGenerator : MonoBehaviour
 
     void OnGUI()
     {
+        GUI.skin = guiSkin;
+
         DisplayName();
 
         DisplayAttributes();
 
         DisplaySkills();
 
+        GUI.skin = null;
+
         DisplayVitals();
+
+        GUI.skin = guiSkin;
 
         DisplayPointsLeft();
     }
@@ -85,7 +95,7 @@ public class CharacterGenerator : MonoBehaviour
         }
 
         if (GUI.Button(new Rect(Offset + StatLabelWidth + BaseValueLabelWidth + ButtonWidth,
-            y, ButtonWidth, ButtonHeight), "+"))
+            y, ButtonWidth, ButtonHeight), "+", guiStyle))
         {
             if (pointsLeft > 0)
             {
