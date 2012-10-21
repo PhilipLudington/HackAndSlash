@@ -4,6 +4,9 @@ using System;
 
 public class CharacterGenerator : MonoBehaviour
 {
+    private const int StartingPoints = 350;
+    private const int MinimumStartingValue = 10;
+    private int pointsLeft;
 
     private PlayerCharacter toon;
 
@@ -12,6 +15,13 @@ public class CharacterGenerator : MonoBehaviour
     {
         toon = new PlayerCharacter();
         toon.Awake();
+
+        for (int i = 0; i < Enum.GetValues(typeof(AttributeName)).Length; i++)
+        {
+            toon.GetPrimaryAttribute(i).BaseValue = MinimumStartingValue;
+        }
+
+        pointsLeft = StartingPoints;
     }
 
     // Update is called once per frame
@@ -29,6 +39,8 @@ public class CharacterGenerator : MonoBehaviour
         DisplaySkills();
 
         DisplayVitals();
+
+        DisplayPointsLeft();
     }
 
     private void DisplayName()
@@ -39,9 +51,13 @@ public class CharacterGenerator : MonoBehaviour
 
     private void DisplayAttribute(int index)
     {
-        GUI.Label(new Rect(10, 40 + (index * 25), 100, 25), ((AttributeName)index).ToString());
+        int y = 40 + (index * 25);
 
-        GUI.Label(new Rect(115, 40 + (index * 25), 30, 25), toon.GetPrimaryAttribute(index).AdjustedBaseValue.ToString());
+        GUI.Label(new Rect(10, y, 100, 25), ((AttributeName)index).ToString());
+
+        GUI.Label(new Rect(115, y, 30, 25), toon.GetPrimaryAttribute(index).AdjustedBaseValue.ToString());
+        GUI.Button(new Rect(145, y, 25, 25), "-");
+        GUI.Button(new Rect(170, y, 25, 25), "+");
     }
 
     private void DisplayAttributes()
@@ -54,9 +70,9 @@ public class CharacterGenerator : MonoBehaviour
 
     private void DisplaySkill(int index)
     {
-        GUI.Label(new Rect(150, 40 + (index * 25), 100, 25), ((SkillName)index).ToString());
+        GUI.Label(new Rect(200, 40 + (index * 25), 100, 25), ((SkillName)index).ToString());
 
-        GUI.Label(new Rect(250, 40 + (index * 25), 30, 25), toon.GetSkill(index).AdjustedBaseValue.ToString());
+        GUI.Label(new Rect(300, 40 + (index * 25), 30, 25), toon.GetSkill(index).AdjustedBaseValue.ToString());
     }
 
     private void DisplaySkills()
@@ -69,9 +85,9 @@ public class CharacterGenerator : MonoBehaviour
 
     private void DisplayVital(int index)
     {
-        GUI.Label(new Rect(290, 40 + (index * 25), 100, 25), ((VitalName)index).ToString());
+        GUI.Label(new Rect(340, 40 + (index * 25), 100, 25), ((VitalName)index).ToString());
 
-        GUI.Label(new Rect(390, 40 + (index * 25), 30, 25), toon.GetVital(index).AdjustedBaseValue.ToString());
+        GUI.Label(new Rect(440, 40 + (index * 25), 30, 25), toon.GetVital(index).AdjustedBaseValue.ToString());
     }
 
     private void DisplayVitals()
@@ -80,5 +96,11 @@ public class CharacterGenerator : MonoBehaviour
         {
             DisplayVital(i);
         }
+    }
+
+    private void DisplayPointsLeft()
+    {
+        GUI.Label(new Rect(200, 10, 150, 25),
+            string.Format("Points Remaining: {0}", pointsLeft));
     }
 }
