@@ -76,17 +76,32 @@ public class BaseCharacter : MonoBehaviour
 
     public Attribute GetPrimaryAttribute(AttributeName attributeName)
     {
-        return primaryAttributes[(int)attributeName];
+        return GetPrimaryAttribute((int)attributeName);
+    }
+
+    public Attribute GetPrimaryAttribute(int attributeIndex)
+    {
+        return primaryAttributes[attributeIndex];
     }
 
     public Skill GetSkill(SkillName skillName)
     {
-        return skills[(int)skillName];
+        return GetSkill((int)skillName);
+    }
+
+    public Skill GetSkill(int index)
+    {
+        return skills[index];
     }
 
     public Vital GetVital(VitalName vitalName)
     {
-        return vitals[(int)vitalName];
+        return GetVital((int)vitalName);
+    }
+
+    public Vital GetVital(int index)
+    {
+        return vitals[index];
     }
 
     private void SetupPrimaryAttributes()
